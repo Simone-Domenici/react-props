@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from './components/Header.jsx';
 import Post from './components/Post.jsx'
 import Footer from './components/Footer.jsx'
@@ -21,6 +21,10 @@ const App = () => {
     setUniqueTags(uniqueTags);
   };
 
+  useEffect(() => {
+    getUniqueTags(posts);
+  }, [posts]);
+
   return (
     <div className={styles.app}>
       <Header />
@@ -34,6 +38,11 @@ const App = () => {
               image= {post.image}  
                />
         ))}
+        <div className={styles.flex}>
+        {uniqueTags.map((tag) => (
+          <span className= {styles.tags}key={tag}>{tag}</span>
+        ))}
+      </div>
       </main>
       <Footer />
     </div>
