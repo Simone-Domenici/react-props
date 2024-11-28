@@ -6,17 +6,23 @@ const Post = ({ post, uniqueTags, title }) => {
     return image || 'https://via.placeholder.com/600x400'; // Immagine di placeholder
   };
   
+  const colorMap = {
+    html: 'green',
+    css: 'pink',
+    php: 'orange',
+    js: 'yellow'
+  };
+  
   const getColor = (tag) => {
-    const colors = ['green', 'pink', 'blue', 'orange'];
-    return colors[uniqueTags.indexOf(tag) % colors.length]
-  }
+    return colorMap[tag] || 'gray'; // Colore di default per tag non mappati
+  };
   return (
     <div className={styles.post}>
       <img src={getImage(post.image)}alt={title} className={styles.postImage} />
       <div className={styles.postContent}>
         <h2>{post.title}</h2>
         {post.tags.map((tag) => (
-          <span key={tag} style={{ backgroundColor: getColor(tag) }}>
+          <span className={styles.tags} key={tag} style={{ backgroundColor: getColor(tag) }}>
             {tag}
           </span>))}
         <p>{post.content}</p>
